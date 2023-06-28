@@ -106,7 +106,7 @@ function shuffleArray(array) {
 function destapar(imagen, id){
     console.log("destapar")
     console.log(($("#contenedor")).is(':hidden'));
-    if (($("#contenedor")).is(':hidden') && !wait){
+    if (($("#contenedor")).is(':hidden') && !wait && id !== id1){
         $("#img"+id).show();
         cartasdestapadas = cartasdestapadas + 1;
         console.log(cartasdestapadas);
@@ -114,6 +114,7 @@ function destapar(imagen, id){
             valor1 = imagen;
             id1 = id;
             $("#img"+id).prop("disabled", true);
+            console.log("id1:"+id1);
         }
         if (cartasdestapadas % 2 === 0){
             valor2 = imagen;
@@ -150,6 +151,8 @@ function destapar(imagen, id){
 
                     $("#tablero").prop("disabled", false);
                     wait = false;
+                    id1 = null;
+                    id2 = null;
                 },500);
             }
         }
