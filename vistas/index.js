@@ -2,6 +2,12 @@ let cont = $("#cont");
 let contadorGeneral = -1;
 const contenedor = $("#contenedor");
 let cadena = [];
+let cartasdestapadas = 0;
+let id1 = null;
+let id2 = null;
+let valor1 = null;
+let valor2 = null;
+let aciertos = 0;
 
 const img1 = "<div class='col-3 me-3' class='elemento' id='";
 const img2 = "'><div class='alert alert-dismissible fade show col-2' role='alert'>" +
@@ -100,5 +106,45 @@ function destapar(imagen, id){
     console.log(($("#contenedor")).is(':hidden'));
     if (($("#contenedor")).is(':hidden')){
         $("#img"+id).show();
+        cartasdestapadas = cartasdestapadas + 1;
+        console.log(cartasdestapadas);
+        if (cartasdestapadas % 2 === 1){
+            valor1 = imagen;
+            id1 = id;
+            $("#img"+id).prop("disabled", true);
+        }
+        if (cartasdestapadas % 2 === 0){
+            valor2 = imagen;
+            id2 = id;
+            if (valor2 === valor1){
+                aciertos = aciertos + 1;
+                console.log("nuevo acierto", aciertos, $("#cont").text());
+                if (aciertos === parseInt($("#cont").text())){
+                    setTimeout(()=>{
+                        alert("Felicidades, has completado el juego");
+                        $("#contenedor").empty();
+                        $("#contenedor").show();
+                        $("#tablero").empty();
+                        $("#cont").text(0);
+                        contadorGeneral = -1;
+                        cadena = [];
+                        cartasdestapadas = 0;
+                        id1 = null;
+                        id2 = null;
+                        valor1 = null;
+                        valor2 = null;
+                        aciertos = 0;
+                    },1000)
+                }
+            }else {
+                setTimeout(()=>{
+                    $("#img"+id1).hide();
+                    $("#img"+id1).prop("disabled", false);
+
+                    $("#img"+id2).hide();
+                    $("#img"+id2).prop("disabled", false);
+                },1500);
+            }
+        }
     }
 }
