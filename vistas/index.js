@@ -78,12 +78,18 @@ function crearCuadros (cadena, contador) {
         for (let k = 0; k < columnas;k++){
             for (let j = 0; j < filas;j++){
                 console.log("Fila", j);
-                $("#tablero").append("<div class='col col-3'><div class='rectangulo p-3'><img id='"+(k*filas+j)+"' onclick=\"destapar('"+cadena2[arreglo[k*filas+j]]+"',"+(k*filas+j)+")\" style='width: 150px;' src='../imagenes/"+cadena2[arreglo[k*filas+j]]+".png'></div></div>");
+                $("#tablero").append("<div class='col col-3'><div class='rectangulo p-3'><img id='"+(k*filas+j)+"' onclick=\"destapar('"+cadena2[arreglo[k*filas+j]]+"',"+(k*filas+j)+")\" style='height: 100px; display: none;' src='../imagenes/"+cadena2[arreglo[k*filas+j]]+".png'></div></div>");
             }
         }
-        $("#tablero").append("<div class='container'><button class='btn btn-primary'>Comenzar juego</button></div>");
+        $("#tablero").append("<div class='container' id='start'><button type='button' class='btn btn-primary'>Comenzar juego</button></div>");
     }
 }
+$(document).on('click', '#start', function (event) {
+    console.log("en start");
+    $("#contenedor").hide();
+    $("#start").hide();
+    $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info'>Aleatorizar</button><button id='random' type='button' class='btn btn-warning'>Ayuda</button></div>");
+})
 function shuffleArray(array) {
     array.sort(() => Math.random() - 0.5);
     return array;
