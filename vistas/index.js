@@ -78,7 +78,7 @@ function crearCuadros (cadena, contador) {
         for (let k = 0; k < columnas;k++){
             for (let j = 0; j < filas;j++){
                 console.log("Fila", j);
-                $("#tablero").append("<div class='col col-3'><div class='rectangulo p-3'><img id='"+(k*filas+j)+"' onclick=\"destapar('"+cadena2[arreglo[k*filas+j]]+"',"+(k*filas+j)+")\" style='height: 100px; display: none;' src='../imagenes/"+cadena2[arreglo[k*filas+j]]+".png'></div></div>");
+                $("#tablero").append("<div class='col col-3'><div class='rectangulo p-3' onclick=\"destapar('"+cadena2[arreglo[k*filas+j]]+"',"+(k*filas+j)+")\"><img style='height: 100px; display: none' id='img"+(k*filas+j)+"' src='../imagenes/"+cadena2[arreglo[k*filas+j]]+".png'></div></div>");
             }
         }
         $("#tablero").append("<div class='container' id='start'><button type='button' class='btn btn-primary'>Comenzar juego</button></div>");
@@ -93,4 +93,12 @@ $(document).on('click', '#start', function (event) {
 function shuffleArray(array) {
     array.sort(() => Math.random() - 0.5);
     return array;
+}
+
+function destapar(imagen, id){
+    console.log("destapar")
+    console.log(($("#contenedor")).is(':hidden'));
+    if (($("#contenedor")).is(':hidden')){
+        $("#img"+id).show();
+    }
 }
