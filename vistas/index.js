@@ -9,6 +9,7 @@ let valor1 = null;
 let valor2 = null;
 let aciertos = 0;
 let wait = false;
+let arregloAciertosId = [];
 
 const img1 = "<div class='col-3 me-3' class='elemento' id='";
 const img2 = "'><div class='alert alert-dismissible fade show col-2' role='alert'>" +
@@ -105,8 +106,10 @@ function shuffleArray(array) {
 
 function destapar(imagen, id){
     console.log("destapar")
+    console.log(id);
     console.log(($("#contenedor")).is(':hidden'));
-    if (($("#contenedor")).is(':hidden') && !wait && id !== id1){
+    console.log("wait:",wait,"id1: ",id!==id1, "encontrado:",!arregloAciertosId.includes(id));
+    if (($("#contenedor")).is(':hidden') && !wait && id !== id1 && !arregloAciertosId.includes(id)){
         $("#img"+id).show();
         cartasdestapadas = cartasdestapadas + 1;
         console.log(cartasdestapadas);
@@ -121,6 +124,10 @@ function destapar(imagen, id){
             id2 = id;
             if (valor2 === valor1){
                 aciertos = aciertos + 1;
+                arregloAciertosId.push(id1);
+                arregloAciertosId.push(id2);
+                id1 = null;
+                id2 = null;
                 console.log("nuevo acierto", aciertos, $("#cont").text());
                 if (aciertos === parseInt($("#cont").text())){
                     setTimeout(()=>{
