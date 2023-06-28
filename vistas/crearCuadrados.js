@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#inputFoto").change( function () {
-        let contador = parseInt($("#cont").text());
+        let contador = parseInt($("#cont").text()) + 1;
         console.log(contador);
         let filas = 0;
         let columnas = 0;
@@ -15,12 +15,12 @@ $(document).ready(function() {
             columnas = 3;
         }
         console.log(filas, columnas);
-        $("#tablero").val("");
-        $("#tablero").append("<div class='row row-cols-" + filas + " row-cols-lg-"+columnas+">");
+        $("#tablero").empty();
+        $("#tablero").append("<div class='row row-cols-" + filas + " row-cols-lg-"+columnas+"'>");
 
 
         for (let k = 0; k < columnas;k++){
-            for (let k = 0; k < filas;k++){
+            for (let j = 0; j < filas;j++){
                 console.log("Fila", k);
                 $("#tablero").append("<div class='col'><div class='rectangulo p-3'>Row column</div></div>");
             }
