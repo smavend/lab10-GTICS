@@ -95,6 +95,7 @@ $(document).on('click', '#start', function (event) {
     console.log("en start");
     $("#contenedor").hide();
     $("#start").hide();
+    $("#botonAgregar").hide();
     $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info'>Aleatorizar</button><button id='random' type='button' class='btn btn-warning'>Ayuda</button></div>");
 })
 function shuffleArray(array) {
@@ -127,6 +128,7 @@ function destapar(imagen, id){
                         $("#contenedor").show();
                         $("#tablero").empty();
                         $("#cont").text(0);
+                        $("#botonAgregar").show();
                         contadorGeneral = -1;
                         cadena = [];
                         cartasdestapadas = 0;
