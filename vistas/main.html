@@ -20,12 +20,14 @@
             <h1>El Juego de la Memoria</h1>
             <h5>Total de imágenes seleccionadas: <span id="cont">0</span></h5>
             <input type="file" id="inputFoto" style="display: none">
-            <button type="button" class="btn btn-success" id="botonAgregar">Agregar imágenes</button>
+            <a class="btn btn-success" id="botonAgregar">Agregar imágenes</a>
             <div class="container">
-                <div class="row" style="margin-top: 10px;">
-                    <div class="alert alert-dismissible fade show col-2" role="alert">
-                        <img style="width: 200px;" src="../imagenes/Abra.png" alt="imagen">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="row" style="margin-top: 10px;" id="contenedor">
+                    <div class='col-3 me-3' id='a'>
+                        <div class='alert alert-dismissible fade show col-2' role='alert'>
+                            <img src='../imagenes/Abra.png' alt='imagen'>
+                            <button id="quitar" type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,6 +39,7 @@
                 crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="index.js"></script>
         <script src="crearCuadrados.js"></script>
     </body>
 </html>
