@@ -1,7 +1,7 @@
 const contador = $("#contador");
 const contenedor = $("#");
 
-$("#botonAgregar").onclick(function (){
+$("#botonAgregar").click(function (){
     $("#inputFoto").trigger('click');
 })
 
