@@ -8,6 +8,7 @@ let id2 = null;
 let valor1 = null;
 let valor2 = null;
 let aciertos = 0;
+let wait = false;
 
 const img1 = "<div class='col-3 me-3' class='elemento' id='";
 const img2 = "'><div class='alert alert-dismissible fade show col-2' role='alert'>" +
@@ -104,7 +105,7 @@ function shuffleArray(array) {
 function destapar(imagen, id){
     console.log("destapar")
     console.log(($("#contenedor")).is(':hidden'));
-    if (($("#contenedor")).is(':hidden')){
+    if (($("#contenedor")).is(':hidden') && !wait){
         $("#img"+id).show();
         cartasdestapadas = cartasdestapadas + 1;
         console.log(cartasdestapadas);
@@ -137,13 +138,17 @@ function destapar(imagen, id){
                     },1000)
                 }
             }else {
+                wait = true;
                 setTimeout(()=>{
                     $("#img"+id1).hide();
                     $("#img"+id1).prop("disabled", false);
 
                     $("#img"+id2).hide();
                     $("#img"+id2).prop("disabled", false);
-                },1500);
+
+                    $("#tablero").prop("disabled", false);
+                    wait = false;
+                },500);
             }
         }
     }
