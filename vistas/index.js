@@ -191,12 +191,14 @@ function destapar(imagen, id){
                         $("#botonAgregar").show();
                         contadorGeneral = -1;
                         cadena = [];
+                        cadena2 = [];
                         cartasdestapadas = 0;
                         id1 = null;
                         id2 = null;
                         valor1 = null;
                         valor2 = null;
                         aciertos = 0;
+                        arregloAciertosId = [];
                         localStorage.removeItem("imagenes");
                         localStorage.removeItem("contador");
                         $("#ayuda").hide();
