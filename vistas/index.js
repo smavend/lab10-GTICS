@@ -10,6 +10,8 @@ let valor2 = null;
 let aciertos = 0;
 let wait = false;
 let arregloAciertosId = [];
+let contAyuda= 0;
+
 
 let localContador = localStorage.getItem("contador");
 let localImagenes = localStorage.getItem("imagenes") == null? []:JSON.parse(localStorage.getItem("imagenes"));
@@ -138,7 +140,7 @@ $(document).on('click', '#start', function (event) {
     $("#contenedor").hide();
     $("#start").hide();
     $("#botonAgregar").hide();
-    $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info me-2'>Aleatorizar</button><button id='random' type='button' class='btn btn-warning'>Ayuda</button></div>");
+    $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info me-2'>Aleatorizar</button><button id='ayuda' type='button' class='btn btn-warning'>Ayuda</button></div>");
 })
 
 function shuffleArray(array) {
@@ -209,6 +211,29 @@ function destapar(imagen, id){
                     id2 = null;
                 },500);
             }
+            //funcion para contabilizar el numero de intentos
+            if ($("#ayuda").click() && contAyuda < 2) {
+                if (valor1 !== valor2) {
+                    contAyuda++;
+                    mostrarPareja(valor1);
+                }
+            }
         }
     }
 }
+//Funcion que me busca una carta igual
+function mostrarPareja(imagen) {
+    for (let i = 0; i < cadena.length; i++) {
+        if (cadena[i] === imagen) {
+            $("#img"+i).show();
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
