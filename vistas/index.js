@@ -230,7 +230,6 @@ function mostrarPareja(imagen) {
     for (let i = 0; i < (2*cadena.length)-1; i++) {
         if (cadena[i] === imagen) {
             $("#img"+i).show();
-            aciertos = aciertos + 1;
             break;
         }
     }
