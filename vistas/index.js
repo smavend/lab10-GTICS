@@ -11,6 +11,9 @@ let aciertos = 0;
 let wait = false;
 let arregloAciertosId = [];
 
+let localContador = localStorage.getItem("contador");
+let localImagenes = localStorage.getItem("imagenes") == null? []:JSON.parse(localStorage.getItem("imagenes"));
+
 const img1 = "<div class='col-3 me-3' class='elemento' id='";
 const img2 = "'><div class='alert alert-dismissible fade show col-2' role='alert'><img style='width: 200px;' src='../imagenes/";
 const img3= "' alt='imagen'><button id='quitar";
@@ -176,7 +179,11 @@ function destapar(imagen, id){
                         valor1 = null;
                         valor2 = null;
                         aciertos = 0;
-                    },1000)
+
+                        localStorage.removeItem("imagenes");
+                        localStorage.removeItem("contador");
+
+                    },700)
                 }
             }else {
                 wait = true;
