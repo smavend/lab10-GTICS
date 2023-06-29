@@ -225,11 +225,12 @@ function destapar(imagen, id){
 function mostrarPareja(imagen) {
     imagen = imagen.split('.').shift();
     console.log(cadena);
+    console.log(imagen);
     console.log((2*cadena.length)-1);
     for (let i = 0; i < (2*cadena.length)-1; i++) {
         if (cadena[i] === imagen) {
             $("#img"+i).show();
-            imagen.show();
+            aciertos = aciertos + 1;
             break;
         }
     }
