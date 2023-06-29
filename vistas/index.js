@@ -11,7 +11,7 @@ let valor2 = null;
 let aciertos = 0;
 let wait = false;
 let arregloAciertosId = [];
-let contAyuda= 0;
+let contAyuda= 1;
 
 
 
@@ -134,7 +134,8 @@ $(document).on('click', '#start', function (event) {
     $("#contenedor").hide();
     $("#start").hide();
     $("#botonAgregar").hide();
-    $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info me-2'>Aleatorizar</button><button id='ayuda' type='button' class='btn btn-warning'>Ayuda</button></div>");
+    $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info me-2'>Aleatorizar</button></div>");
+    $("#ayuda").show();
 })
 
 function shuffleArray(array) {
@@ -188,7 +189,7 @@ function destapar(imagen, id){
 
                         localStorage.removeItem("imagenes");
                         localStorage.removeItem("contador");
-
+                        $("#ayuda").hidden;
                     },700)
                 }
             }else {
@@ -213,9 +214,11 @@ function destapar(imagen, id){
 function mostrarPareja(imagen) {
     imagen = imagen.split('.').shift();
     console.log(cadena);
-    for (let i = 0; i < cadena.length; i++) {
+    console.log((2*cadena.length)-1);
+    for (let i = 0; i < (2*cadena.length)-1; i++) {
         if (cadena[i] === imagen) {
             $("#img"+i).show();
+            imagen.show();
             break;
         }
     }
@@ -224,7 +227,7 @@ $("#ayuda").click(function () {
     //funcion para contabilizar el numero de intentos
     console.log(fotoAyuda);
 
-    if (contAyuda < 3) {
+    if (contAyuda < 2) {
         mostrarPareja(fotoAyuda);
         contAyuda++;
     } else {
