@@ -1,3 +1,4 @@
+let fotoAyuda=null;
 let cont = $("#cont");
 let contadorGeneral = -1;
 const contenedor = $("#contenedor");
@@ -11,6 +12,7 @@ let aciertos = 0;
 let wait = false;
 let arregloAciertosId = [];
 let contAyuda= 0;
+
 
 
 let localContador = localStorage.getItem("contador");
@@ -43,7 +45,7 @@ $("body").on("change", "#inputFoto", function (event){
     let archivo = event.target.files[0].name;
     cadena.push(archivo.split('.').shift());
     let extension = archivo.split('.').pop();
-    
+
     if (extension === "png" && cont.text()<16) {
 
         // guardando imagenes en storage
@@ -128,7 +130,7 @@ function crearCuadros (cadena, contador) {
 }
 
 $(document).on('click', '#start', function (event) {
-    console.log("en start");
+    //console.log("en start");
     $("#contenedor").hide();
     $("#start").hide();
     $("#botonAgregar").hide();
@@ -143,10 +145,12 @@ function shuffleArray(array) {
 function destapar(imagen, id){
     console.log("destapar")
     console.log(id);
-    console.log(($("#contenedor")).is(':hidden'));
-    console.log("wait:",wait,"id1: ",id!==id1, "encontrado:",!arregloAciertosId.includes(id));
+    //console.log(($("#contenedor")).is(':hidden'));
+    //console.log("wait:",wait,"id1: ",id!==id1, "encontrado:",!arregloAciertosId.includes(id));
     if (($("#contenedor")).is(':hidden') && !wait && id !== id1 && !arregloAciertosId.includes(id)){
-        $("#img"+id).show();
+        $("#img"+id).show()
+        fotoAyuda = $("#img"+id).attr('src').split('/').pop();
+        console.log(fotoAyuda);
         cartasdestapadas = cartasdestapadas + 1;
         console.log(cartasdestapadas);
         if (cartasdestapadas % 2 === 1){
@@ -164,7 +168,7 @@ function destapar(imagen, id){
                 arregloAciertosId.push(id2);
                 id1 = null;
                 id2 = null;
-                console.log("nuevo acierto", aciertos, $("#cont").text());
+                //console.log("nuevo acierto", aciertos, $("#cont").text());
                 if (aciertos === parseInt($("#cont").text())){
                     setTimeout(()=>{
                         alert("Felicidades, has completado el juego");
@@ -202,18 +206,13 @@ function destapar(imagen, id){
                     id2 = null;
                 },500);
             }
-            //funcion para contabilizar el numero de intentos
-            if ($("#ayuda").click() && contAyuda < 2) {
-                if (valor1 !== valor2) {
-                    contAyuda++;
-                    mostrarPareja(valor1);
-                }
-            }
         }
     }
 }
 //Funcion que me busca una carta igual
 function mostrarPareja(imagen) {
+    imagen = imagen.split('.').shift();
+    console.log(cadena);
     for (let i = 0; i < cadena.length; i++) {
         if (cadena[i] === imagen) {
             $("#img"+i).show();
@@ -221,6 +220,17 @@ function mostrarPareja(imagen) {
         }
     }
 }
+$("#ayuda").click(function () {
+    //funcion para contabilizar el numero de intentos
+    console.log(fotoAyuda);
+
+    if (contAyuda < 3) {
+        mostrarPareja(fotoAyuda);
+        contAyuda++;
+    } else {
+        $("#ayuda").prop("disabled", true);
+    }
+})
 
 
 
