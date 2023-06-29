@@ -17,24 +17,31 @@ let contAyuda= 1;
 
 let localContador = localStorage.getItem("contador");
 let localImagenes = localStorage.getItem("imagenes") == null? []:JSON.parse(localStorage.getItem("imagenes"));
+let juegoIniciado = localStorage.getItem("juegoIniciado") == null? false: JSON.parse(localStorage.getItem("juegoIniciado"));
 
 const img1 = "<div class='col-3 me-3' class='elemento' id='";
 const img2 = "'><div class='alert alert-dismissible fade show col-2' role='alert'><img style='width: 200px;' src='../imagenes/";
 const img3= "' alt='imagen'><button id='quitar";
 const img4 = "' type='button' onclick='quitar()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div></div>";
 
-if(localContador != null){ // ya existe una partida
-    cont.text(localContador);
+$(document).ready(function(){
+    if(localContador != null){ // ya existe una partida
+        cont.text(localContador);
 
-    // recargando las imagenes que ya habian
-    for(let i = 0; i < localImagenes.length; i++){
-        cadena.push(localImagenes[i].split('.').shift());
-        contenedor.append(img1+i+img2+localImagenes[i]+img3+i+img4)
+        // recargando las imagenes que ya habian
+        for(let i = 0; i < localImagenes.length; i++){
+            cadena.push(localImagenes[i].split('.').shift());
+            contenedor.append(img1+i+img2+localImagenes[i]+img3+i+img4)
+        }
+
+        crearCuadros(cadena, parseInt($("#cont").text()));
+
+        if(juegoIniciado == true){
+            $("#start").trigger('click');
+        }
+
     }
-
-    crearCuadros(cadena, parseInt($("#cont").text()));
-
-}
+})
 
 $("#botonAgregar").click(function () {
     $("#inputFoto").trigger('click');
@@ -130,6 +137,10 @@ function crearCuadros (cadena, contador) {
 }
 
 $(document).on('click', '#start', function (event) {
+
+    console.log("en start");
+    localStorage.setItem("juegoIniciado", JSON.stringify(true));
+
     //console.log("en start");
     $("#contenedor").hide();
     $("#start").hide();
@@ -186,10 +197,10 @@ function destapar(imagen, id){
                         valor1 = null;
                         valor2 = null;
                         aciertos = 0;
-
                         localStorage.removeItem("imagenes");
                         localStorage.removeItem("contador");
-                        $("#ayuda").hidden;
+                        $("#ayuda").hide();
+                        localStorage.removeItem("juegoIniciado");
                     },700)
                 }
             }else {
