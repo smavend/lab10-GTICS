@@ -8,9 +8,8 @@ let id2 = null;
 let valor1 = null;
 let valor2 = null;
 let aciertos = 0;
-
-let localContador = localStorage.getItem("contador");
-let localImagenes = localStorage.getItem("imagenes") == null? []:JSON.parse(localStorage.getItem("imagenes"));
+let wait = false;
+let arregloAciertosId = [];
 
 const img1 = "<div class='col-3 me-3' class='elemento' id='";
 const img2 = "'><div class='alert alert-dismissible fade show col-2' role='alert'><img style='width: 200px;' src='../imagenes/";
@@ -127,6 +126,7 @@ $(document).on('click', '#start', function (event) {
     console.log("en start");
     $("#contenedor").hide();
     $("#start").hide();
+    $("#botonAgregar").hide();
     $("#tablero").append("<div class='container' id='buttons'><button type='button' id='random' class='btn btn-info me-2'>Aleatorizar</button><button id='random' type='button' class='btn btn-warning'>Ayuda</button></div>");
 })
 
@@ -137,8 +137,10 @@ function shuffleArray(array) {
 
 function destapar(imagen, id){
     console.log("destapar")
+    console.log(id);
     console.log(($("#contenedor")).is(':hidden'));
-    if (($("#contenedor")).is(':hidden')){
+    console.log("wait:",wait,"id1: ",id!==id1, "encontrado:",!arregloAciertosId.includes(id));
+    if (($("#contenedor")).is(':hidden') && !wait && id !== id1 && !arregloAciertosId.includes(id)){
         $("#img"+id).show();
         cartasdestapadas = cartasdestapadas + 1;
         console.log(cartasdestapadas);
@@ -146,12 +148,17 @@ function destapar(imagen, id){
             valor1 = imagen;
             id1 = id;
             $("#img"+id).prop("disabled", true);
+            console.log("id1:"+id1);
         }
         if (cartasdestapadas % 2 === 0){
             valor2 = imagen;
             id2 = id;
             if (valor2 === valor1){
                 aciertos = aciertos + 1;
+                arregloAciertosId.push(id1);
+                arregloAciertosId.push(id2);
+                id1 = null;
+                id2 = null;
                 console.log("nuevo acierto", aciertos, $("#cont").text());
                 if (aciertos === parseInt($("#cont").text())){
                     setTimeout(()=>{
@@ -160,6 +167,7 @@ function destapar(imagen, id){
                         $("#contenedor").show();
                         $("#tablero").empty();
                         $("#cont").text(0);
+                        $("#botonAgregar").show();
                         contadorGeneral = -1;
                         cadena = [];
                         cartasdestapadas = 0;
@@ -171,13 +179,19 @@ function destapar(imagen, id){
                     },1000)
                 }
             }else {
+                wait = true;
                 setTimeout(()=>{
                     $("#img"+id1).hide();
                     $("#img"+id1).prop("disabled", false);
 
                     $("#img"+id2).hide();
                     $("#img"+id2).prop("disabled", false);
-                },1500);
+
+                    $("#tablero").prop("disabled", false);
+                    wait = false;
+                    id1 = null;
+                    id2 = null;
+                },500);
             }
         }
     }
